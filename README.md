@@ -49,12 +49,8 @@ zip -r personalized-recs.zip personalized-recs
 ```
 Upload the ZIP via WP Admin → Plugins → Add New → Upload.
 
-Docs
-- docs/API.md: REST endpoints
-- docs/DEPLOYMENT.md: hosting, CORS, proxying
-- docs/INTERVIEW.md: design rationale, trade-offs, interview prep
 
-License
-GPL-2.0 for the WordPress plugin; app code under MIT unless your org requires otherwise.
+
+
 
 
