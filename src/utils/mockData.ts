@@ -130,17 +130,20 @@ export const mockResources: Resource[] = [
 ];
 
 export function generateMockProfile(userId: string): StartupProfile {
+  const industries = ['Technology', 'SaaS', 'AI/ML', 'E-commerce', 'Fintech'];
+  const stages = ['Idea', 'Pre-seed', 'Seed', 'Series A', 'Series B'];
+
   return {
-    id: 'profile-1',
+    id: `profile-${userId}`,
     user_id: userId,
-    company_name: '',
-    industry: '',
-    stage: '',
-    team_size: 0,
-    funding_raised: 0,
-    location: '',
-    founded_date: '',
-    description: '',
+    company_name: 'My Startup',
+    industry: industries[Math.floor(Math.random() * industries.length)],
+    stage: stages[Math.floor(Math.random() * stages.length)],
+    team_size: Math.floor(Math.random() * 50) + 1,
+    funding_raised: Math.floor(Math.random() * 5000000),
+    location: 'San Francisco, CA',
+    founded_date: new Date().toISOString(),
+    description: 'A new startup in the industry.',
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
   };

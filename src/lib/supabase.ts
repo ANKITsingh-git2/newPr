@@ -1,6 +1,6 @@
-import { createClient } from '@/-js';
-const Url = import.meta.env.VITE__URL;
-const AnonKey = import.meta.env.VITE__ANON_KEY;
-if (!Url || !AnonKey) {
-  throw new Error('Missing  environment variables');
-  export const  = createClient(Url, AnonKey);
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey); 
