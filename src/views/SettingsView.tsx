@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { UserPreferences } from '../types';
+import { UserPreferences, Difficulty, NotificationFrequency } from '../types';
 import { Settings, Save } from 'lucide-react';
 import { fetchPreferences, savePreferences } from '../lib/wpApi';
-
-interface SettingsViewProps {}
 
 const INDUSTRIES = [
   'Technology', 'Healthcare', 'Finance', 'Education', 'E-commerce',
@@ -14,23 +12,23 @@ const CONTENT_TYPES = [
   'Article', 'Video', 'Course', 'Tool', 'Template', 'Podcast'
 ];
 
-export function SettingsView({}: SettingsViewProps) {
+export function SettingsView() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [formData, setFormData] = useState({
-    preferred_industries: [] as string[],
-    preferred_content_types: [] as string[],
-    preferred_difficulty: 'intermediate',
-    excluded_tags: [] as string[],
-    notification_frequency: 'weekly'
+  const [formData, setFormData] = useState<UserPreferences>({
+    preferred_industries: [],
+    preferred_content_types: [],
+    preferred_difficulty: 'intermediate' as Difficulty,
+    excluded_tags: [],
+    notification_frequency: 'weekly' as NotificationFrequency,
   });
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
-        const prefs = await fetchPreferences();
-        if (!cancelled) setFormData(prefs as any);
+        const prefs: UserPreferences = await fetchPreferences();
+        if (!cancelled) setFormData(prefs);
       } catch (e) {
         // ignore for anon users
       }
@@ -133,7 +131,12 @@ export function SettingsView({}: SettingsViewProps) {
             </label>
             <select
               value={formData.preferred_difficulty}
-              onChange={(e) => setFormData({ ...formData, preferred_difficulty: e.target.value })}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  preferred_difficulty: e.target.value as Difficulty,
+                })
+              }
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="beginner">Beginner</option>
@@ -148,7 +151,12 @@ export function SettingsView({}: SettingsViewProps) {
             </label>
             <select
               value={formData.notification_frequency}
-              onChange={(e) => setFormData({ ...formData, notification_frequency: e.target.value })}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  notification_frequency: e.target.value as NotificationFrequency,
+                })
+              }
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="daily">Daily</option>
